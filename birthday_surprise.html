@@ -1,182 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Surprise 🎉</title>
-
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>🎂 Happy Birthday!</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
+*{margin:0;padding:0;box-sizing:border-box;}
 body{
-  margin:0;
-  font-family:Segoe UI, Arial, sans-serif;
-  background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
-  color:white;
-  text-align:center;
+  background:#0A0015;
+  font-family:'Nunito',sans-serif;
+  min-height:100vh;
   overflow-x:hidden;
-}
-
-.container{
-  max-width:600px;
-  margin:60px auto;
-  padding:40px;
-  background:rgba(255,255,255,0.05);
-  border-radius:20px;
-  backdrop-filter:blur(10px);
-  box-shadow:0 0 30px rgba(0,0,0,0.4);
-}
-
-h1{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-h2{
-  color:#ffd166;
-  margin-top:0;
-}
-
-#wishText{
-  font-size:18px;
-  line-height:1.6;
-  margin:25px 0;
-  color:#e0d9ff;
-}
-
-#ageBadge{
-  margin:10px 0;
-  font-weight:bold;
-  color:#ffb703;
-}
-
-#musicBtn{
-  background:linear-gradient(135deg,#ff6b9d,#9b5de5);
-  border:none;
-  padding:15px 30px;
-  border-radius:50px;
-  font-size:16px;
-  font-weight:bold;
   color:white;
-  cursor:pointer;
-  transition:0.3s;
 }
 
-#musicBtn:hover{
-  transform:scale(1.05);
+/* STARS */
+.stars{
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(155,93,229,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(255,107,157,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(255,209,102,0.05) 0%, transparent 60%);
+  pointer-events:none;z-index:0;
 }
 
-.bars{
-  margin-top:15px;
-  height:20px;
+/* CONFETTI */
+#confetti-canvas{
+  position:fixed;inset:0;
+  pointer-events:none;z-index:100;
 }
 
-.bar{
-  display:inline-block;
-  width:5px;
-  height:15px;
-  margin:0 2px;
-  background:#ffd166;
-  animation:wave 1s infinite ease-in-out;
+.page{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:40px 20px;
+  text-align:center;
 }
 
-.bar:nth-child(2){animation-delay:0.1s;}
-.bar:nth-child(3){animation-delay:0.2s;}
-.bar:nth-child(4){animation-delay:0.3s;}
-.bar:nth-child(5){animation-delay:0.4s;}
+/* CAKE */
+.cake-wrap{position:relative;margin-bottom:30px;animation:floatUp 3s ease-in-out infinite;}
+@keyframes floatUp{0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
+.cake{font-size:100px;display:block;filter:drop-shadow(0 0 30px rgba(255,209,102,0.6));}
 
-.paused .bar{
-  animation:none;
-  height:5px;
+.flames{position:absolute;top:-10px;left:50%;transform:translateX(-50%);display:flex;gap:18px;}
+.flame{
+  width:12px;height:20px;
+  background:linear-gradient(to top,#FF6B00,#FFD166,#FFF);
+  border-radius:50% 50% 30% 30%;
+  animation:flicker 0.5s ease-in-out infinite alternate;
+  filter:blur(1px);
 }
+.flame:nth-child(2){animation-delay:0.2s;}
+.flame:nth-child(3){animation-delay:0.1s;}
+@keyframes flicker{0%{transform:scale(1) rotate(-3deg);}100%{transform:scale(1.1) rotate(3deg);}}
 
-@keyframes wave{
-  0%,100%{height:5px;}
-  50%{height:20px;}
+/* TITLE */
+.happy{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,8vw,5rem);
+  font-weight:900;
+  background:linear-gradient(135deg,#FFD166,#FF6B9D,#9B5DE5,#06D6A0);
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:gradShift 4s ease infinite;
+  line-height:1.1;margin-bottom:10px;
 }
+@keyframes gradShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 
-footer{
-  margin-top:30px;
-  font-size:14px;
-  color:#bbb;
+.person-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,6vw,4rem);
+  font-weight:900;font-style:italic;
+  color:#FFD166;
+  text-shadow:0 0 40px rgba(255,209,102,0.5);
+  margin-bottom:30px;
+  animation:nameGlow 2s ease-in-out infinite;
+}
+@keyframes nameGlow{0%,100%{text-shadow:0 0 20px rgba(255,209,102,0.4);}50%{text-shadow:0 0 50px rgba(255,209,102,0.9),0 0 80px rgba(255,107,157,0.4);}}
+
+/* WISH CARD */
+.wish-card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+  border-radius:24px;
+  padding:32px 36px;
+  max-width:600px;width:100%;
+  margin-bottom:30px;
+}
+.wish-text{font-size:clamp(1rem,2.5vw,1.2rem);line-height:1.9;color:rgba(255,255,255,0.9);margin-bottom:16px;}
+.wish-from{font-size:1rem;color:#9B5DE5;font-weight:700;}
+
+/* MUSIC */
+.music-section{margin-bottom:30px;}
+.music-label{font-size:0.85rem;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.music-btn{
+  background:linear-gradient(135deg,#FF6B9D,#9B5DE5);
+  border:none;border-radius:50px;
+  padding:14px 32px;color:white;font-size:1rem;
+  font-weight:800;cursor:pointer;
+  display:inline-flex;align-items:center;gap:10px;
+  transition:all 0.3s;
+  box-shadow:0 4px 25px rgba(155,93,229,0.4);
+}
+.music-btn:hover{transform:scale(1.05);}
+.music-btn.playing{background:linear-gradient(135deg,#06D6A0,#3B82F6);}
+
+.bars{display:inline-flex;align-items:center;gap:3px;height:20px;}
+.bar{width:3px;background:white;border-radius:2px;animation:barDance 0.6s ease-in-out infinite alternate;}
+.bar:nth-child(1){animation-delay:0.0s;height:8px;}
+.bar:nth-child(2){animation-delay:0.1s;height:14px;}
+.bar:nth-child(3){animation-delay:0.2s;height:20px;}
+.bar:nth-child(4){animation-delay:0.1s;height:14px;}
+.bar:nth-child(5){animation-delay:0.0s;height:8px;}
+@keyframes barDance{0%{transform:scaleY(0.4);}100%{transform:scaleY(1);}}
+.bars.paused .bar{animation-play-state:paused;}
+
+/* EMOJI FLOAT */
+.emoji-float{
+  position:fixed;font-size:1.5rem;
+  animation:emojiRain linear infinite;
+  pointer-events:none;z-index:99;opacity:0;
+}
+@keyframes emojiRain{
+  0%{transform:translateY(-50px) rotate(0deg);opacity:0;}
+  10%{opacity:1;}
+  90%{opacity:0.8;}
+  100%{transform:translateY(110vh) rotate(360deg);opacity:0;}
 }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>🎉 Happy Birthday <span id="personName">Friend</span>! 🎂</h1>
-  <div id="ageBadge"></div>
+<div class="stars"></div>
+<canvas id="confetti-canvas"></canvas>
 
-  <div id="wishText"></div>
-
-  <button id="musicBtn" onclick="toggleMusic()">
-    <span id="btnIcon">▶</span>
-    <span id="btnText">Play Birthday Song</span>
-  </button>
-
-  <div class="bars paused" id="bars">
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-  </div>
-
-  <footer id="wishFrom"></footer>
+<div class="page">
+<div class="cake-wrap">
+<div class="flames"><div class="flame"></div><div class="flame"></div><div class="flame"></div></div>
+<span class="cake">🎂</span>
 </div>
 
-<!-- AUDIO -->
+<div class="happy">Happy Birthday</div>
+<div class="person-name" id="personName">Friend</div>
+
+<div class="wish-card">
+<div class="wish-text" id="wishText"></div>
+<div class="wish-from" id="wishFrom"></div>
+</div>
+
+<div class="music-section">
+<div class="music-label">🎵 Your birthday song</div>
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+<span id="btnIcon">▶</span>
+<span id="btnText">Play Birthday Song</span>
+<div class="bars paused" id="bars">
+<div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+</div>
+</button>
+</div>
+</div>
+
+<!-- YOUR SONG -->
 <audio id="birthdayAudio" loop>
-  <source src="alert.mp3" type="audio/mpeg">
+<source src="alert.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* ── URL PARAMETERS ── */
-const params = new URLSearchParams(window.location.search);
-const name   = params.get('name')  || 'Friend';
-const age    = params.get('age')   || '';
-const from   = params.get('from')  || 'Revathi';
+const params=new URLSearchParams(window.location.search);
+const name=params.get('name')||'Friend';
+const from=params.get('from')||'Revathi';
 
-const wishes = [
-  "May your day be as wonderful and bright as you make every day! 🎂✨",
-  "Another year older, another year more amazing! 🎉",
-  "Wishing you endless happiness and sweet memories! 🎈",
-  "May every candle bring a wish that comes true! 🕯️",
-  "Hope your birthday sparkles with joy and laughter! 🌟"
+const wishes=[
+"May your day be as wonderful and bright as you make every day! 🎂✨",
+"Another year older, another year more amazing! 🎉",
+"Wishing you endless happiness and sweet memories! 🎈",
+"May every candle bring a wish that comes true! 🕯️"
 ];
 
-document.getElementById('personName').textContent = name;
-document.getElementById('wishFrom').textContent = `— With love, ${from} 💛`;
-document.getElementById('wishText').textContent =
-  wishes[Math.floor(Math.random() * wishes.length)];
+document.getElementById('personName').textContent=name;
+document.getElementById('wishFrom').textContent=`— With love, ${from} 💛`;
+document.getElementById('wishText').textContent=wishes[Math.floor(Math.random()*wishes.length)];
 
-if(age){
-  document.getElementById('ageBadge').textContent =
-    `Turning ${age} today! 🌟`;
-}
-
-/* ── MUSIC CONTROL ── */
-const audio = document.getElementById('birthdayAudio');
-const btn   = document.getElementById('musicBtn');
-const bars  = document.getElementById('bars');
-let playing = false;
+const audio=document.getElementById('birthdayAudio');
+const btn=document.getElementById('musicBtn');
+const bars=document.getElementById('bars');
+let playing=false;
 
 function toggleMusic(){
-  playing = !playing;
-
-  if(playing){
-    audio.play();
-    bars.classList.remove('paused');
-    document.getElementById('btnIcon').textContent = '⏸';
-    document.getElementById('btnText').textContent = 'Playing...';
-  } else {
-    audio.pause();
-    audio.currentTime = 0;
-    bars.classList.add('paused');
-    document.getElementById('btnIcon').textContent = '▶';
-    document.getElementById('btnText').textContent = 'Play Birthday Song';
-  }
+playing=!playing;
+if(playing){
+audio.play();
+btn.classList.add('playing');
+bars.classList.remove('paused');
+document.getElementById('btnIcon').textContent='⏸';
+document.getElementById('btnText').textContent='Playing...';
+}else{
+audio.pause();
+audio.currentTime=0;
+btn.classList.remove('playing');
+bars.classList.add('paused');
+document.getElementById('btnIcon').textContent='▶';
+document.getElementById('btnText').textContent='Play Birthday Song';
 }
-</script>
+}
 
+/* CONFETTI */
+const canvas=document.getElementById('confetti-canvas');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+const COLORS=['#FF6B9D','#9B5DE5','#FFD166','#06D6A0','#FF9F1C','#3B82F6','#ffffff'];
+const pieces=Array.from({length:120},()=>({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height-canvas.height,
+w:6+Math.random()*8,
+h:8+Math.random()*6,
+color:COLORS[Math.floor(Math.random()*COLORS.length)],
+speed:1.5+Math.random()*3,
+angle:Math.random()*Math.PI*2,
+spin:(Math.random()-0.5)*0.15,
+wave:Math.random()*Math.PI*2,
+waveSpeed:0.02+Math.random()*0.03,
+}));
+function drawConfetti(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+pieces.forEach(p=>{
+p.y+=p.speed;
+p.angle+=p.spin;
+p.wave+=p.waveSpeed;
+p.x+=Math.sin(p.wave)*1.2;
+if(p.y>canvas.height+20){p.y=-20;p.x=Math.random()*canvas.width;}
+ctx.save();
+ctx.translate(p.x,p.y);
+ctx.rotate(p.angle);
+ctx.fillStyle=p.color;
+ctx.globalAlpha=0.8;
+ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+ctx.restore();
+});
+requestAnimationFrame(drawConfetti);
+}
+drawConfetti();
+
+/* EMOJIS */
+const emojis=['🎉','🎈','🎊','✨','🌟','💛','🎁','🥳','💜','🎶'];
+function spawnEmoji(){
+const el=document.createElement('div');
+el.className='emoji-float';
+el.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+el.style.left=Math.random()*100+'vw';
+el.style.animationDuration=(5+Math.random()*8)+'s';
+el.style.fontSize=(1+Math.random()*1.5)+'rem';
+document.body.appendChild(el);
+setTimeout(()=>el.remove(),12000);
+}
+setInterval(spawnEmoji,800);
+</script>
 </body>
 </html>
